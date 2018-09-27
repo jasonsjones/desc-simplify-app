@@ -36,30 +36,35 @@ class LoginForm extends React.Component {
                             });
                         }}
                     >
-                        <div className="input-field">
-                            <i className="small material-icons prefix">email</i>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                onChange={this.handleChange}
-                                value={this.state.email}
-                            />
-                            <label htmlFor="email">Email</label>
-                        </div>
-                        <div className="input-field">
-                            <i className="small material-icons prefix">lock</i>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                onChange={this.handleChange}
-                                value={this.state.password}
-                            />
-                            <label htmlFor="password">Password</label>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <i className="small material-icons prefix">email</i>
+                                <input
+                                    className="validate"
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    onChange={this.handleChange}
+                                    value={this.state.email}
+                                />
+                                <label htmlFor="email">Email</label>
+                            </div>
                         </div>
                         <div className="row">
-                            <div className="col offset-l1">
+                            <div className="input-field col s12">
+                                <i className="small material-icons prefix">lock</i>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    onChange={this.handleChange}
+                                    value={this.state.password}
+                                />
+                                <label htmlFor="password">Password</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col offset-s1">
                                 <button className="btn">Login</button>
                             </div>
                         </div>

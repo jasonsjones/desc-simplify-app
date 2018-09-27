@@ -20,56 +20,54 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div style={{ padding: '30px 0 0 0' }}>
-                <div className="card-panel">
-                    <h5 className="center-align">Login</h5>
-                    <form
-                        onSubmit={evt => {
-                            evt.preventDefault();
-                            this.props.handleSubmit({
-                                email: this.state.email,
-                                password: this.state.password
-                            });
-                            this.setState({
-                                email: '',
-                                password: ''
-                            });
-                        }}
-                    >
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <i className="small material-icons prefix">email</i>
-                                <input
-                                    className="validate"
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    onChange={this.handleChange}
-                                    value={this.state.email}
-                                />
-                                <label htmlFor="email">Email</label>
-                            </div>
+            <div className="card-panel">
+                <h5 className="center-align">Login</h5>
+                <form
+                    onSubmit={evt => {
+                        evt.preventDefault();
+                        this.props.handleSubmit({
+                            email: this.state.email,
+                            password: this.state.password
+                        });
+                        this.setState({
+                            email: '',
+                            password: ''
+                        });
+                    }}
+                >
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="small material-icons prefix">email</i>
+                            <input
+                                className="validate"
+                                type="email"
+                                id="email"
+                                name="email"
+                                onChange={this.handleChange}
+                                value={this.state.email}
+                            />
+                            <label htmlFor="email">Email</label>
                         </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <i className="small material-icons prefix">lock</i>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    onChange={this.handleChange}
-                                    value={this.state.password}
-                                />
-                                <label htmlFor="password">Password</label>
-                            </div>
+                    </div>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <i className="small material-icons prefix">lock</i>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                onChange={this.handleChange}
+                                value={this.state.password}
+                            />
+                            <label htmlFor="password">Password</label>
                         </div>
-                        <div className="row">
-                            <div className="col offset-s1">
-                                <button className="btn">Login</button>
-                            </div>
+                    </div>
+                    <div className="row">
+                        <div className="col offset-s1">
+                            <button className="btn">Login</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         );
     }
@@ -115,23 +113,25 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col s12 l6 offset-l3">
-                        <LoginForm handleSubmit={this.handleSubmit} />
-                    </div>
-                </div>
-
-                {this.state.isDataFetched && (
-                    <div className="row">
-                        <div className="col s12 l8 offset-l2">
-                            <UserDetailsCard
-                                contextUser={this.state.contextUser}
-                                token={this.state.token}
-                            />
+            <div style={{ padding: '30px 0 0 0' }}>
+                <div className="container">
+                    {this.state.isDataFetched ? (
+                        <div className="row">
+                            <div className="col s12 l8 offset-l2">
+                                <UserDetailsCard
+                                    contextUser={this.state.contextUser}
+                                    token={this.state.token}
+                                />
+                            </div>
                         </div>
-                    </div>
-                )}
+                    ) : (
+                        <div className="row">
+                            <div className="col s12 l6 offset-l3">
+                                <LoginForm handleSubmit={this.handleSubmit} />
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }

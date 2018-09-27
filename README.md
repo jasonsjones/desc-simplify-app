@@ -1,5 +1,5 @@
-# React from Scratch
+# DESC Simplify App
 
 ### Description
 
-This is a bare-bones project to get a React app up and running without create-react-app.
+A prototype frontend to integrate with the DESC Simplify API

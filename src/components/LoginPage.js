@@ -12,9 +12,9 @@ class LoginForm extends React.Component {
     }
 
     handleChange = evt => {
-        const { name, value } = evt.target;
+        const { id, value } = evt.target;
         this.setState({
-            [name]: value
+            [id]: value
         });
     };
 
@@ -42,7 +42,6 @@ class LoginForm extends React.Component {
                                 className="validate"
                                 type="email"
                                 id="email"
-                                name="email"
                                 onChange={this.handleChange}
                                 value={this.state.email}
                             />
@@ -55,7 +54,6 @@ class LoginForm extends React.Component {
                             <input
                                 type="password"
                                 id="password"
-                                name="password"
                                 onChange={this.handleChange}
                                 value={this.state.password}
                             />

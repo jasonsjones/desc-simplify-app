@@ -17,9 +17,9 @@ class SignupForm extends React.Component {
     }
 
     handleChange = evt => {
-        const { name, value } = evt.target;
+        const { id, value } = evt.target;
         this.setState({
-            [name]: value
+            [id]: value
         });
     };
 
@@ -53,7 +53,6 @@ class SignupForm extends React.Component {
                             <input
                                 type="text"
                                 id="firstName"
-                                name="firstName"
                                 value={this.state.firstName}
                                 onChange={this.handleChange}
                             />
@@ -63,7 +62,6 @@ class SignupForm extends React.Component {
                             <input
                                 type="text"
                                 id="lastName"
-                                name="lastName"
                                 value={this.state.lastName}
                                 onChange={this.handleChange}
                             />
@@ -77,7 +75,6 @@ class SignupForm extends React.Component {
                                 className="validate"
                                 type="email"
                                 id="email"
-                                name="email"
                                 value={this.state.email}
                                 onChange={this.handleChange}
                             />
@@ -90,7 +87,6 @@ class SignupForm extends React.Component {
                             <input
                                 type="password"
                                 id="password"
-                                name="password"
                                 value={this.state.password}
                                 onChange={this.handleChange}
                             />
@@ -103,7 +99,6 @@ class SignupForm extends React.Component {
                             <input
                                 type="password"
                                 id="confirmPassword"
-                                name="confirmPassword"
                                 value={this.state.confirmPassword}
                                 onChange={this.handleChange}
                             />

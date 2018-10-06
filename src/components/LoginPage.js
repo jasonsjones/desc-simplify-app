@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import * as actions from '../actions/actions';
 import UserDetailsCard from './UserDetailsCard';
 
 class LoginForm extends React.Component {
@@ -62,7 +65,9 @@ class LoginForm extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col offset-s1">
-                            <button className="btn">Login</button>
+                            <button className="btn">
+                                {this.props.isFetching ? 'Logging in...' : 'Login'}
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -72,60 +77,38 @@ class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-    handleSubmit: PropTypes.func
+    handleSubmit: PropTypes.func,
+    isFetching: PropTypes.bool
 };
 
 class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            idDataFetched: false,
-            contextUser: null,
-            token: ''
-        };
-    }
-
     handleSubmit = creds => {
-        fetch('http://localhost:3000/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(creds)
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                console.log(JSON.stringify(data));
-                if (data) {
-                    this.setState({
-                        isDataFetched: true,
-                        contextUser: data.payload.user,
-                        token: data.payload.token
-                    });
-                }
-            })
-            .catch(err => console.log(err));
+        this.props.login(creds);
     };
 
     render() {
         return (
             <div style={{ padding: '30px 0 0 0' }}>
                 <div className="container">
-                    {this.state.isDataFetched ? (
+                    {this.props.isAuth ? (
                         <div className="row">
                             <div className="col s12 l8 offset-l2">
                                 <UserDetailsCard
-                                    contextUser={this.state.contextUser}
-                                    token={this.state.token}
+                                    contextUser={this.props.contextUser}
+                                    token={this.props.token}
                                 />
                             </div>
                         </div>
                     ) : (
                         <div className="row">
                             <div className="col s12 l6 offset-l3">
-                                <LoginForm handleSubmit={this.handleSubmit} />
+                                {this.props.error && (
+                                    <h4 className="red-text">{this.props.error}</h4>
+                                )}
+                                <LoginForm
+                                    handleSubmit={this.handleSubmit}
+                                    isFetching={this.props.isFetching}
+                                />
                             </div>
                         </div>
                     )}
@@ -135,4 +118,32 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+    login: PropTypes.func,
+    isFetching: PropTypes.bool,
+    isAuth: PropTypes.bool,
+    contextUser: PropTypes.object,
+    token: PropTypes.string,
+    error: PropTypes.string
+};
+
+const mapStateToProps = state => {
+    return {
+        isFetching: state.isFetching,
+        isAuth: state.isAuth,
+        contextUser: state.contextUser,
+        token: state.token,
+        error: state.error
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        login: creds => dispatch(actions.userLogin(creds))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginPage);

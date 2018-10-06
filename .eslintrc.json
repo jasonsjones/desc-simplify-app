@@ -35,7 +35,6 @@
             }
         ],
         "no-multi-spaces": "warn",
-        "indent": "warn",
         "no-tabs": "error",
         "no-trailing-spaces": "error",
         "wrap-iife": "warn"

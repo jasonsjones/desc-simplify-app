@@ -1,9 +1,9 @@
 export const reducer = (
     state = {
         isFetching: false,
-        isAuth: false,
-        contextUser: null,
-        token: null,
+        isAuth: !!window.localStorage.getItem('userToken'),
+        contextUser: JSON.parse(window.localStorage.getItem('contextUser')),
+        token: window.localStorage.getItem('userToken'),
         error: ''
     },
     action

@@ -7,8 +7,7 @@ export const userLogin = creds => {
             body: JSON.stringify(creds)
         })
             .then(response => {
-                console.log(response);
-                if (response.ok) {
+                if (response.ok && response.status === 200) {
                     return response.json();
                 } else if (response.status === 401) {
                     return Promise.reject({ message: 'Unauthorized user' });
@@ -17,12 +16,11 @@ export const userLogin = creds => {
             .then(data => {
                 console.log(data);
                 if (data) {
+                    window.localStorage.setItem('contextUser', JSON.stringify(data.payload.user));
+                    window.localStorage.setItem('userToken', data.payload.token);
                     dispatch({ type: 'USER_LOGIN_SUCCESS', data });
                 }
             })
-            .catch(err => {
-                console.log(err);
-                dispatch({ type: 'USER_LOGIN_ERROR', data: err.message });
-            });
+            .catch(err => dispatch({ type: 'USER_LOGIN_ERROR', data: err.message }));
     };
 };

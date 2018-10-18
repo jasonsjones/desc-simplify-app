@@ -14,7 +14,6 @@ export const userLogin = creds => {
                 }
             })
             .then(data => {
-                console.log(data);
                 if (data) {
                     window.localStorage.setItem('contextUser', JSON.stringify(data.payload.user));
                     window.localStorage.setItem('userToken', data.payload.token);
@@ -22,5 +21,20 @@ export const userLogin = creds => {
                 }
             })
             .catch(err => dispatch({ type: 'USER_LOGIN_ERROR', data: err.message }));
+    };
+};
+
+export const userLogout = () => {
+    return dispatch => {
+        dispatch({ type: 'USER_LOGOUT_REQUEST' });
+        fetch('http://localhost:3000/api/auth/logout')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.localStorage.removeItem('contextUser');
+                    window.localStorage.removeItem('userToken');
+                    dispatch({ type: 'USER_LOGOUT_SUCCESS' });
+                }
+            });
     };
 };

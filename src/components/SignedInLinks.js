@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import * as actions from '../actions/actions';
 
 const SignedInLinks = props => {
     console.log(props.contextUser);
@@ -12,14 +15,26 @@ const SignedInLinks = props => {
                 }`}</NavLink>
             </li>
             <li>
-                <NavLink to="#">Logout</NavLink>
+                <NavLink to="#" onClick={props.logout}>
+                    Logout
+                </NavLink>
             </li>
         </ul>
     );
 };
 
 SignedInLinks.propTypes = {
-    contextUser: PropTypes.object
+    contextUser: PropTypes.object,
+    logout: PropTypes.func
 };
 
-export default SignedInLinks;
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(actions.userLogout())
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(SignedInLinks);

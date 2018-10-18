@@ -29,6 +29,22 @@ export const reducer = (
                 isFetching: false,
                 error: action.data
             };
+        case 'USER_LOGOUT_REQUEST':
+            console.log('handling user logout request...');
+            return {
+                ...state,
+                isFetching: true
+            };
+        case 'USER_LOGOUT_SUCCESS':
+            console.log('handling user logout success...');
+            return {
+                ...state,
+                isAuth: false,
+                contextUser: null,
+                isFetching: false,
+                token: '',
+                error: ''
+            };
         default:
             return state;
     }

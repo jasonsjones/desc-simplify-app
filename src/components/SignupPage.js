@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import UserDetailsCard from './UserDetailsCard';
+import * as actions from '../actions/actions';
 
 class SignupForm extends React.Component {
     constructor(props) {
@@ -123,51 +125,18 @@ SignupForm.propTypes = {
 class SignupPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            idDataFetched: false,
-            contextUser: null,
-            token: ''
-        };
     }
 
     handleSubmit = data => {
-        console.log(JSON.stringify(data));
-        fetch('http://localhost:3000/api/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                console.log(JSON.stringify(data));
-                if (data) {
-                    this.setState({
-                        isDataFetched: true,
-                        contextUser: data.payload.user,
-                        token: data.payload.token
-                    });
-                }
-            })
-            .catch(err => console.log(err));
+        this.props.signup(data);
     };
 
     render() {
         return (
             <div className="container">
                 <div style={{ padding: '30px 0 0 0' }}>
-                    {this.state.isDataFetched ? (
-                        <div className="row">
-                            <div className="col s12 l8 offset-l2">
-                                <UserDetailsCard
-                                    contextUser={this.state.contextUser}
-                                    token={this.state.token}
-                                />
-                            </div>
-                        </div>
+                    {this.props.isAuth ? (
+                        <Redirect to="/" />
                     ) : (
                         <div className="row">
                             <div className="col s12 l6 offset-l3">
@@ -181,4 +150,24 @@ class SignupPage extends React.Component {
     }
 }
 
-export default SignupPage;
+SignupPage.propTypes = {
+    isAuth: PropTypes.bool,
+    signup: PropTypes.func
+};
+
+const mapStateToProps = state => {
+    return {
+        isAuth: state.isAuth
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signup: userData => dispatch(actions.userSignup(userData))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignupPage);

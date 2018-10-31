@@ -1,7 +1,9 @@
+const baseUrl = 'http://localhost:3000';
+
 export const userLogin = creds => {
     return dispatch => {
         dispatch({ type: 'USER_LOGIN_REQUEST' });
-        fetch('http://localhost:3000/api/auth/login', {
+        fetch(`${baseUrl}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(creds)
@@ -27,7 +29,7 @@ export const userLogin = creds => {
 export const userLogout = () => {
     return dispatch => {
         dispatch({ type: 'USER_LOGOUT_REQUEST' });
-        fetch('http://localhost:3000/api/auth/logout')
+        fetch(`${baseUrl}/api/auth/logout`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -36,5 +38,29 @@ export const userLogout = () => {
                     dispatch({ type: 'USER_LOGOUT_SUCCESS' });
                 }
             });
+    };
+};
+
+export const userSignup = userData => {
+    return dispatch => {
+        dispatch({ type: 'USER_SIGNUP_REQUEST' });
+        fetch(`${baseUrl}/api/users`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data) {
+                    window.localStorage.setItem('contextUser', JSON.stringify(data.payload.user));
+                    window.localStorage.setItem('userToken', data.payload.token);
+                    dispatch({ type: 'USER_SIGNUP_SUCCESS', data });
+                }
+            })
+            .catch(err => console.log(err));
     };
 };

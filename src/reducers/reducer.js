@@ -9,11 +9,13 @@ export const reducer = (
     action
 ) => {
     switch (action.type) {
+        case 'USER_SIGNUP_REQUEST':
         case 'USER_LOGIN_REQUEST':
             return {
                 ...state,
                 isFetching: true
             };
+        case 'USER_SIGNUP_SUCCESS':
         case 'USER_LOGIN_SUCCESS':
             return {
                 ...state,

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/actions';
-import UserDetailsCard from './UserDetailsCard';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -91,14 +91,7 @@ class LoginPage extends React.Component {
             <div style={{ padding: '30px 0 0 0' }}>
                 <div className="container">
                     {this.props.isAuth ? (
-                        <div className="row">
-                            <div className="col s12 l8 offset-l2">
-                                <UserDetailsCard
-                                    contextUser={this.props.contextUser}
-                                    token={this.props.token}
-                                />
-                            </div>
-                        </div>
+                        <Redirect to="/" />
                     ) : (
                         <div className="row">
                             <div className="col s12 l6 offset-l3">

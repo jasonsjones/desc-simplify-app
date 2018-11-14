@@ -64,3 +64,21 @@ export const userSignup = userData => {
             .catch(err => console.log(err));
     };
 };
+
+export const fetchData = () => {
+    return dispatch => {
+        dispatch({ type: 'FETCH_DATA_REQUEST' });
+        fetch(`${baseUrl}/api`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data) {
+                    dispatch({ type: 'FETCH_DATA_SUCCESS', data });
+                }
+            })
+            .catch(err => console.log(err));
+    };
+};

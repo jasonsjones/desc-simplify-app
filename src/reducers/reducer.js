@@ -4,6 +4,8 @@ export const reducer = (
         isAuth: !!window.localStorage.getItem('userToken'),
         contextUser: JSON.parse(window.localStorage.getItem('contextUser')),
         token: window.localStorage.getItem('userToken'),
+        message: '',
+        version: '',
         error: ''
     },
     action
@@ -11,6 +13,7 @@ export const reducer = (
     switch (action.type) {
         case 'USER_SIGNUP_REQUEST':
         case 'USER_LOGIN_REQUEST':
+        case 'FETCH_DATA_REQUEST':
             return {
                 ...state,
                 isFetching: true
@@ -46,6 +49,13 @@ export const reducer = (
                 isFetching: false,
                 token: '',
                 error: ''
+            };
+        case 'FETCH_DATA_SUCCESS':
+            return {
+                ...state,
+                error: '',
+                message: action.data.message,
+                version: action.data.version
             };
         default:
             return state;

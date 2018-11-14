@@ -89,23 +89,19 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div style={{ padding: '30px 0 0 0' }}>
-                <div className="container">
-                    {this.props.isAuth ? (
-                        <Redirect to="/" />
-                    ) : (
-                        <div className="row">
-                            <div className="col s12 l6 offset-l3">
-                                {this.props.error && (
-                                    <h4 className="red-text">{this.props.error}</h4>
-                                )}
-                                <LoginForm
-                                    handleSubmit={this.handleSubmit}
-                                    isFetching={this.props.isFetching}
-                                />
-                            </div>
+                {this.props.isAuth ? (
+                    <Redirect to="/" />
+                ) : (
+                    <div className="row">
+                        <div className="col s12 l6 offset-l3">
+                            {this.props.error && <h4 className="red-text">{this.props.error}</h4>}
+                            <LoginForm
+                                handleSubmit={this.handleSubmit}
+                                isFetching={this.props.isFetching}
+                            />
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         );
     }

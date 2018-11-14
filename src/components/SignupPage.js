@@ -133,18 +133,16 @@ class SignupPage extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div style={{ padding: '30px 0 0 0' }}>
-                    {this.props.isAuth ? (
-                        <Redirect to="/" />
-                    ) : (
-                        <div className="row">
-                            <div className="col s12 l6 offset-l3">
-                                <SignupForm handleSubmit={this.handleSubmit} />
-                            </div>
+            <div style={{ padding: '30px 0 0 0' }}>
+                {this.props.isAuth ? (
+                    <Redirect to="/" />
+                ) : (
+                    <div className="row">
+                        <div className="col s12 l6 offset-l3">
+                            <SignupForm handleSubmit={this.handleSubmit} />
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         );
     }

@@ -1,12 +1,16 @@
 /* global M */
 import React from 'react';
+import { connect } from 'react-redux';
+
 import ItemList from './ItemList';
+import * as actions from '../actions/actions';
 
 class Tabs extends React.Component {
     componentDidMount() {
         let options = {};
         let tabs = document.querySelectorAll('.tabs');
         M.Tabs.init(tabs, options);
+        this.props.fetchItems();
     }
 
     render() {
@@ -47,4 +51,13 @@ class Tabs extends React.Component {
     }
 }
 
-export default Tabs;
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchItems: () => dispatch(actions.fetchItems())
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Tabs);

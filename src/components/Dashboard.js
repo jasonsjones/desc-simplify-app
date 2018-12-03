@@ -2,13 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions/actions';
-
 class Dashboard extends React.Component {
-    componentDidMount() {
-        this.props.fetchItems();
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -43,13 +37,4 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchItems: () => dispatch(actions.fetchItems())
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

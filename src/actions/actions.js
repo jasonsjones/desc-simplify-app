@@ -82,3 +82,21 @@ export const fetchData = () => {
             .catch(err => console.log(err));
     };
 };
+
+export const fetchItems = () => {
+    return dispatch => {
+        dispatch({ type: 'FETCH_ITEM_REQUEST' });
+        fetch(`${baseUrl}/api/items`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data) {
+                    dispatch({ type: 'FETCH_ITEM_SUCCESS', data: data.payload.items });
+                }
+            })
+            .catch(err => console.log(err));
+    };
+};

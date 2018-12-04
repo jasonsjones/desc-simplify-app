@@ -1,14 +1,7 @@
-/* global M */
 import React from 'react';
 import ItemList from './ItemList';
 
 class Tabs extends React.Component {
-    componentDidMount() {
-        let options = {};
-        let tabs = document.querySelectorAll('.tabs');
-        M.Tabs.init(tabs, options);
-    }
-
     render() {
         return (
             <div className="row" style={{ marginTop: '40px' }}>

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Grid, Typography, TextField, Paper, Button } from '@material-ui/core';
+import Email from '@material-ui/icons/email';
+import Lock from '@material-ui/icons/lock';
 
 import * as actions from '../actions/actions';
 
@@ -14,8 +17,20 @@ class LoginForm extends React.Component {
         };
     }
 
-    handleChange = evt => {
-        const { id, value } = evt.target;
+    handleSubmitForm = e => {
+        e.preventDefault();
+        this.props.handleSubmit({
+            email: this.state.email,
+            password: this.state.password
+        });
+        this.setState({
+            email: '',
+            password: ''
+        });
+    };
+
+    handleChange = e => {
+        const { id, value } = e.target;
         this.setState({
             [id]: value
         });
@@ -23,55 +38,52 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="card-panel">
-                <h5 className="center-align">Login</h5>
-                <form
-                    onSubmit={evt => {
-                        evt.preventDefault();
-                        this.props.handleSubmit({
-                            email: this.state.email,
-                            password: this.state.password
-                        });
-                        this.setState({
-                            email: '',
-                            password: ''
-                        });
-                    }}
-                >
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <i className="small material-icons prefix">email</i>
-                            <input
-                                className="validate"
+            <Grid container direction="column">
+                <Typography align="center" variant="h5" color="inherit">
+                    Login
+                </Typography>
+                <form onSubmit={this.handleSubmitForm}>
+                    <Grid container alignItems="flex-end" justify="center" spacing={16}>
+                        <Grid item>
+                            <Email />
+                        </Grid>
+                        <Grid item style={{ width: 320 }}>
+                            <TextField
                                 type="email"
+                                label="Email"
                                 id="email"
                                 onChange={this.handleChange}
                                 value={this.state.email}
+                                margin="normal"
+                                fullWidth={true}
                             />
-                            <label htmlFor="email">Email</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <i className="small material-icons prefix">lock</i>
-                            <input
+                        </Grid>
+                    </Grid>
+                    <Grid container alignItems="flex-end" justify="center" spacing={16}>
+                        <Grid item>
+                            <Lock />
+                        </Grid>
+                        <Grid item style={{ width: 320 }}>
+                            <TextField
                                 type="password"
+                                label="Password"
                                 id="password"
                                 onChange={this.handleChange}
-                                value={this.state.password}
+                                value={this.state.email}
+                                margin="normal"
+                                fullWidth={true}
                             />
-                            <label htmlFor="password">Password</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col offset-s1">
-                            <button className="btn">
-                                {this.props.isFetching ? 'Logging in...' : 'Login'}
-                            </button>
-                        </div>
-                    </div>
+                        </Grid>
+                    </Grid>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        style={{ margin: '20px auto', width: '80%' }}
+                    >
+                        {this.props.isFetching ? 'Logging in...' : 'Login'}
+                    </Button>
                 </form>
-            </div>
+            </Grid>
         );
     }
 }
@@ -92,14 +104,22 @@ class LoginPage extends React.Component {
                 {this.props.isAuth ? (
                     <Redirect to="/" />
                 ) : (
-                    <div className="row">
-                        <div className="col s12 l6 offset-l3">
-                            {this.props.error && <h4 className="red-text">{this.props.error}</h4>}
-                            <LoginForm
-                                handleSubmit={this.handleSubmit}
-                                isFetching={this.props.isFetching}
-                            />
-                        </div>
+                    <div>
+                        <Grid container justify="center" spacing={24}>
+                            <Grid item>
+                                <Paper style={{ width: 400, height: 300 }}>
+                                    <LoginForm
+                                        handleSubmit={this.handleSubmit}
+                                        isFetching={this.props.isFetching}
+                                    />
+                                    {this.props.error && (
+                                        <Typography variant="h5" color="error">
+                                            {this.props.error}
+                                        </Typography>
+                                    )}
+                                </Paper>
+                            </Grid>
+                        </Grid>
                     </div>
                 )}
             </div>

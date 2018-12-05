@@ -2,95 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Grid, Typography, TextField, Paper, Button } from '@material-ui/core';
-import Email from '@material-ui/icons/email';
-import Lock from '@material-ui/icons/lock';
+import { Typography, Paper } from '@material-ui/core';
 
+import LoginForm from './LoginForm';
 import * as actions from '../actions/actions';
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: ''
-        };
+const styles = {
+    main: {
+        marginTop: 50
+    },
+    paper: {
+        margin: '20px auto',
+        padding: '20px',
+        width: 400
     }
-
-    handleSubmitForm = e => {
-        e.preventDefault();
-        this.props.handleSubmit({
-            email: this.state.email,
-            password: this.state.password
-        });
-        this.setState({
-            email: '',
-            password: ''
-        });
-    };
-
-    handleChange = e => {
-        const { id, value } = e.target;
-        this.setState({
-            [id]: value
-        });
-    };
-
-    render() {
-        return (
-            <Grid container direction="column">
-                <Typography align="center" variant="h5" color="inherit">
-                    Login
-                </Typography>
-                <form onSubmit={this.handleSubmitForm}>
-                    <Grid container alignItems="flex-end" justify="center" spacing={16}>
-                        <Grid item>
-                            <Email />
-                        </Grid>
-                        <Grid item style={{ width: 320 }}>
-                            <TextField
-                                type="email"
-                                label="Email"
-                                id="email"
-                                onChange={this.handleChange}
-                                value={this.state.email}
-                                margin="normal"
-                                fullWidth={true}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container alignItems="flex-end" justify="center" spacing={16}>
-                        <Grid item>
-                            <Lock />
-                        </Grid>
-                        <Grid item style={{ width: 320 }}>
-                            <TextField
-                                type="password"
-                                label="Password"
-                                id="password"
-                                onChange={this.handleChange}
-                                value={this.state.email}
-                                margin="normal"
-                                fullWidth={true}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        style={{ margin: '20px auto', width: '80%' }}
-                    >
-                        {this.props.isFetching ? 'Logging in...' : 'Login'}
-                    </Button>
-                </form>
-            </Grid>
-        );
-    }
-}
-
-LoginForm.propTypes = {
-    handleSubmit: PropTypes.func,
-    isFetching: PropTypes.bool
 };
 
 class LoginPage extends React.Component {
@@ -100,29 +25,25 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div style={{ padding: '30px 0 0 0' }}>
+            <React.Fragment>
                 {this.props.isAuth ? (
                     <Redirect to="/" />
                 ) : (
-                    <div>
-                        <Grid container justify="center" spacing={24}>
-                            <Grid item>
-                                <Paper style={{ width: 400, height: 300 }}>
-                                    <LoginForm
-                                        handleSubmit={this.handleSubmit}
-                                        isFetching={this.props.isFetching}
-                                    />
-                                    {this.props.error && (
-                                        <Typography variant="h5" color="error">
-                                            {this.props.error}
-                                        </Typography>
-                                    )}
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </div>
+                    <main style={styles.main}>
+                        <Paper style={styles.paper}>
+                            <LoginForm
+                                handleSubmit={this.handleSubmit}
+                                isFetching={this.props.isFetching}
+                            />
+                            {this.props.error && (
+                                <Typography variant="h5" color="error">
+                                    {this.props.error}
+                                </Typography>
+                            )}
+                        </Paper>
+                    </main>
                 )}
-            </div>
+            </React.Fragment>
         );
     }
 }
@@ -131,8 +52,6 @@ LoginPage.propTypes = {
     login: PropTypes.func,
     isFetching: PropTypes.bool,
     isAuth: PropTypes.bool,
-    contextUser: PropTypes.object,
-    token: PropTypes.string,
     error: PropTypes.string
 };
 
@@ -140,8 +59,6 @@ const mapStateToProps = state => {
     return {
         isFetching: state.isFetching,
         isAuth: state.isAuth,
-        contextUser: state.contextUser,
-        token: state.token,
         error: state.error
     };
 };

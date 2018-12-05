@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
     Typography,
+    Paper,
     Button,
     Avatar,
     FormControl,
@@ -12,14 +14,21 @@ import {
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/LockOutlined';
 
+import * as actions from '../actions/actions';
+
 const styles = {
-    root: {
+    paper: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '20px auto',
+        padding: '20px',
+        width: 400
     },
     avatar: {
-        margin: 10
+        margin: 10,
+        color: 'white',
+        backgroundColor: '#7986CB'
     },
     form: {
         width: '100%'
@@ -42,9 +51,10 @@ class LoginForm extends React.Component {
 
     handleSubmitForm = e => {
         e.preventDefault();
-        this.props.handleSubmit({
-            email: this.state.email,
-            password: this.state.password
+        const { email, password } = this.state;
+        this.props.login({
+            email,
+            password
         });
         this.setState({
             email: '',
@@ -61,7 +71,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div style={styles.root}>
+            <Paper style={styles.paper}>
                 <Avatar style={styles.avatar}>
                     <LockIcon />
                 </Avatar>
@@ -83,6 +93,7 @@ class LoginForm extends React.Component {
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="password">Password</InputLabel>
                         <Input
+                            type="password"
                             id="password"
                             name="password"
                             autoComplete="current-password"
@@ -96,22 +107,46 @@ class LoginForm extends React.Component {
                     />
                     <Button
                         type="submit"
-                        fullWidth
                         color="primary"
                         variant="contained"
                         style={styles.button}
+                        fullWidth
                     >
                         {this.props.isFetching ? 'Logging in...' : 'Login'}
                     </Button>
                 </form>
-            </div>
+                {this.props.error && (
+                    <Typography variant="h5" color="error">
+                        {this.props.error}
+                    </Typography>
+                )}
+            </Paper>
         );
     }
 }
 
 LoginForm.propTypes = {
-    handleSubmit: PropTypes.func,
-    isFetching: PropTypes.bool
+    login: PropTypes.func,
+    isFetching: PropTypes.bool,
+    isAuth: PropTypes.bool,
+    error: PropTypes.string
 };
 
-export default LoginForm;
+const mapStateToProps = state => {
+    return {
+        isFetching: state.isFetching,
+        isAuth: state.isAuth,
+        error: state.error
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        login: creds => dispatch(actions.userLogin(creds))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginForm);

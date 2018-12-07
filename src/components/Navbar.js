@@ -15,7 +15,7 @@ import SignedInLinks from './SignedInLinks';
 
 const HomeLink = props => <Link to="/" style={{ textDecoration: 'none' }} {...props} />;
 
-const styles = {
+const styles = () => ({
     root: {
         flexGrow: 1
     },
@@ -26,7 +26,7 @@ const styles = {
         marginLeft: -12,
         marginRight: 20
     }
-};
+});
 
 class MenuAppBar extends React.Component {
     render() {

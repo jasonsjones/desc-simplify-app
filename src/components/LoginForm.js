@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
 import {
     Typography,
     Paper,
@@ -16,7 +17,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 
 import * as actions from '../actions/actions';
 
-const styles = {
+const styles = () => ({
     paper: {
         display: 'flex',
         flexDirection: 'column',
@@ -38,7 +39,7 @@ const styles = {
         marginTop: 20,
         marginBottom: 20
     }
-};
+});
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -70,15 +71,16 @@ class LoginForm extends React.Component {
     };
 
     render() {
+        const { classes } = this.props;
         return (
-            <Paper style={styles.paper}>
-                <Avatar style={styles.avatar}>
+            <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
                     <LockIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
-                <form onSubmit={this.handleSubmitForm} style={styles.form}>
+                <form onSubmit={this.handleSubmitForm} className={classes.form}>
                     <FormControl margin="normal" required fullWidth>
                         <InputLabel htmlFor="email">Email Address</InputLabel>
                         <Input
@@ -109,7 +111,7 @@ class LoginForm extends React.Component {
                         type="submit"
                         color="primary"
                         variant="contained"
-                        style={styles.button}
+                        className={classes.button}
                         fullWidth
                     >
                         {this.props.isFetching ? 'Logging in...' : 'Login'}
@@ -126,6 +128,7 @@ class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
+    classes: PropTypes.object.isRequired,
     login: PropTypes.func,
     isFetching: PropTypes.bool,
     isAuth: PropTypes.bool,
@@ -146,7 +149,9 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LoginForm);
+export default withStyles(styles)(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(LoginForm)
+);

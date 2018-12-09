@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const UserDetailCard = ({ contextUser, token }) => {
     return (
-        <div className="card-panel grey lighten-5">
-            <h4 className="center-align">{`${contextUser.name.first} ${contextUser.name.last}`}</h4>
+        <div>
+            <h4>{`${contextUser.name.first} ${contextUser.name.last}`}</h4>
             <h6>
                 <strong>Id:</strong> {contextUser._id}
             </h6>

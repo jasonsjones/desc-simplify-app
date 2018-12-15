@@ -5,7 +5,7 @@ import Layout from '../containers/Layout';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import Dashboard from './Dashboard';
-import RequestTabs from './RequestTabs';
+import RequestViewPage from './RequestViewPage';
 import NotFoundPage from './NotFoundPage';
 import './App.css';
 
@@ -19,7 +19,7 @@ class App extends React.Component {
                             <Route exact path="/" component={Dashboard} />
                             <Route exact path="/login" component={LoginPage} />
                             <Route exact path="/signup" component={SignupPage} />
-                            <Route exact path="/requests" component={RequestTabs} />
+                            <Route exact path="/requests" component={RequestViewPage} />
                             <Route component={NotFoundPage} />
                         </Switch>
                     </Layout>

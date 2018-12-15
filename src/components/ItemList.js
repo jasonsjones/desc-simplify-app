@@ -1,39 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+    Typography,
+    ExpansionPanel,
+    ExpansionPanelSummary,
+    ExpansionPanelDetails
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const Item = props => {
+const ItemExpansion = props => {
     return (
-        <div>
-            <div>
-                <div>
-                    {props.submittedBy.name.first} {props.submittedBy.name.last}
-                </div>
-                <div>
-                    {props.numberOfItems} {props.name}
-                </div>
-                <div>{props.createdAt}</div>
-            </div>
-        </div>
+        <ExpansionPanel elevation={0}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h6">{props.name}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
+                    lacus ex, sit amet blandit leo lobortis eget.
+                </Typography>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
     );
 };
 
-class ItemList extends React.Component {
-    render() {
-        return (
-            <ul>
-                <li>
-                    <h5>{this.props.title}</h5>
-                </li>
-                {this.props.items &&
-                    this.props.items.filter(item => item.status === this.props.type).map(item => (
-                        <li key={item._id}>
-                            <Item {...item} />
-                        </li>
-                    ))}
-            </ul>
-        );
-    }
-}
+const ItemList = props => (
+    <React.Fragment>
+        <Typography variant="h4" style={{ marginBottom: 25 }}>
+            {props.children}
+        </Typography>
+        {props.items &&
+            props.items
+                .filter(item => item.status === props.list)
+                .map(item => (
+                    <ItemExpansion
+                        key={item._id}
+                        name={item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                    />
+                ))}
+    </React.Fragment>
+);
 
 const mapStateToProps = state => {
     return {

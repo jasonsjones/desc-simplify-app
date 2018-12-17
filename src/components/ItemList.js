@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     Typography,
+    Grid,
     ExpansionPanel,
     ExpansionPanelSummary,
     ExpansionPanelDetails
@@ -9,10 +10,27 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const ItemExpansion = props => {
+    console.log(props);
     return (
         <ExpansionPanel elevation={0}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">{props.name}</Typography>
+                <Grid container justify="space-between">
+                    <Grid item>
+                        <Typography>{props.submittedBy.name.first}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography>{props.numberOfItems}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography>{props.name}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography>{props.urgency}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography>{props.createdAt}</Typography>
+                    </Grid>
+                </Grid>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <Typography>
@@ -32,12 +50,7 @@ const ItemList = props => (
         {props.items &&
             props.items
                 .filter(item => item.status === props.list)
-                .map(item => (
-                    <ItemExpansion
-                        key={item._id}
-                        name={item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                    />
-                ))}
+                .map(item => <ItemExpansion key={item._id} {...item} />)}
     </React.Fragment>
 );
 

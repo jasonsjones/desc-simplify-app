@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = () => ({
-    summaryContainer: {
+    container: {
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%'
@@ -19,13 +19,18 @@ const styles = () => ({
     },
     spacingRight: {
         marginRight: 15
+    },
+    column: {
+        display: 'flex',
+        flexDirection: 'column',
+        border: '1px solid #ccc'
     }
 });
 
 const _ItemSummary = props => {
     const { classes } = props;
     return (
-        <div className={classes.summaryContainer}>
+        <div className={classes.container}>
             <Typography>{`
                 ${props.submittedBy.name.first} ${props.submittedBy.name.last}
             `}</Typography>
@@ -40,28 +45,28 @@ const ItemSummary = withStyles(styles)(_ItemSummary);
 const _PanelDetails = props => {
     const { classes } = props;
     return (
-        <React.Fragment>
-            <Typography variant="body2" className={classes.spacingRight}>
-                This will contain details about the request...
-            </Typography>
-            <Typography variant="body2" className={classes.spacingRight}>
-                Urgency:
-            </Typography>
-            <Typography variant="body1" className={classes.spacingRight}>
-                {props.urgency}
-            </Typography>
-            {props.notes.length > 0 && (
+        <div className={classes.container}>
+            <div className={classes.column}>
                 <Typography variant="body2" className={classes.spacingRight}>
-                    NOTES:
+                    This will contain details about the request...
                 </Typography>
+            </div>
+            <div className={classes.column}>
+                <Typography variant="body2">Urgency: {props.urgency}</Typography>
+            </div>
+
+            {props.notes.length > 0 && (
+                <div className={classes.column}>
+                    <Typography variant="body2">NOTES:</Typography>
+                    {props.notes &&
+                        props.notes.map(note => (
+                            <Typography key={note._id} variant="body1">
+                                {note.body}
+                            </Typography>
+                        ))}
+                </div>
             )}
-            {props.notes &&
-                props.notes.map(note => (
-                    <Typography key={note._id} variant="body1">
-                        {note.body}
-                    </Typography>
-                ))}
-        </React.Fragment>
+        </div>
     );
 };
 

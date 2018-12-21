@@ -1,39 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
-const Item = props => {
-    return (
-        <div onClick={() => console.log('clicked...')}>
-            <div className="row">
-                <div className="col s1 m4">
-                    {props.submittedBy.name.first} {props.submittedBy.name.last}
-                </div>
-                <div className="col s1 m4">
-                    {props.numberOfItems} {props.name}
-                </div>
-                <div className="col s1 m4 right-align">{props.createdAt}</div>
-            </div>
-        </div>
-    );
-};
+import ItemExpansion from './ItemExpansion';
 
-class ItemList extends React.Component {
-    render() {
-        return (
-            <ul className="collection with-header">
-                <li className="collection-header">
-                    <h5>{this.props.title}</h5>
-                </li>
-                {this.props.items &&
-                    this.props.items.filter(item => item.status === this.props.type).map(item => (
-                        <li key={item._id} className="collection-item">
-                            <Item {...item} />
-                        </li>
-                    ))}
-            </ul>
-        );
-    }
-}
+const ItemList = props => (
+    <React.Fragment>
+        <Typography variant="h4" style={{ marginBottom: 25 }}>
+            {props.children}
+        </Typography>
+        {props.items &&
+            props.items
+                .filter(item => item.status === props.list)
+                .map(item => <ItemExpansion key={item._id} {...item} />)}
+    </React.Fragment>
+);
 
 const mapStateToProps = state => {
     return {

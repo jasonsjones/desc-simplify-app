@@ -5,6 +5,8 @@ import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
+import 'materialize-css/dist/css/materialize.min.css';
+
 import { reducer } from './reducers/reducer';
 import App from './components/App';
 

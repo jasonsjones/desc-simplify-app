@@ -1,15 +1,13 @@
-/* global M */
 import React from 'react';
 import { connect } from 'react-redux';
+import M from 'materialize';
 
 import ItemList from './ItemList';
 import * as actions from '../actions/actions';
 
 class Tabs extends React.Component {
     componentDidMount() {
-        let options = {};
-        let tabs = document.querySelectorAll('.tabs');
-        M.Tabs.init(tabs, options);
+        M.Tabs.init(document.querySelectorAll('.tabs'), {});
         this.props.fetchItems();
     }
 

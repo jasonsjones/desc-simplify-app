@@ -12,6 +12,14 @@ export default {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
+    resolve: {
+        alias: {
+            materialize: path.resolve(
+                __dirname,
+                'node_modules/materialize-css/dist/js/materialize.min.js'
+            )
+        }
+    },
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         inline: true,

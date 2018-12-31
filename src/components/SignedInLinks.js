@@ -6,13 +6,15 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 const SignedInLinks = props => {
-    console.log(props.contextUser);
     return (
         <ul className="right hide-on-med-and-down">
             <li>
-                <NavLink to="#">{`${props.contextUser.name.first} ${
-                    props.contextUser.name.last
-                }`}</NavLink>
+                <NavLink to="#">
+                    <i className="material-icons left" style={{ paddingTop: 5 }}>
+                        account_circle
+                    </i>
+                    {`${props.contextUser.name.first} ${props.contextUser.name.last}`}
+                </NavLink>
             </li>
             <li>
                 <NavLink to="#" onClick={props.logout}>

@@ -55,6 +55,7 @@ export const reducer = (
         case 'FETCH_DATA_SUCCESS':
             return {
                 ...state,
+                isFetching: false,
                 error: '',
                 message: action.data.message,
                 version: action.data.version
@@ -62,6 +63,7 @@ export const reducer = (
         case 'FETCH_ITEM_SUCCESS':
             return {
                 ...state,
+                isFetching: false,
                 error: '',
                 items: action.data
             };

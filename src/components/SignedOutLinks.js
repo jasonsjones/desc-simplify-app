@@ -1,17 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 
 const SignedOutLinks = () => {
     return (
-        <React.Fragment>
-            <Button component={NavLink} to="/signup" color="inherit">
-                Signup
-            </Button>
-            <Button component={NavLink} to="/login" color="inherit">
-                Login
-            </Button>
-        </React.Fragment>
+        <ul className="right hide-on-med-and-down">
+            <li>
+                <NavLink to="/signup">Signup</NavLink>
+            </li>
+            <li>
+                <NavLink to="/login">Login</NavLink>
+            </li>
+        </ul>
     );
 };
 

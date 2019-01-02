@@ -56,14 +56,12 @@ export const reducer = (
             return {
                 ...state,
                 error: '',
-                isFetching: false,
                 message: action.data.message,
                 version: action.data.version
             };
         case 'FETCH_ITEM_SUCCESS':
             return {
                 ...state,
-                isFetching: false,
                 error: '',
                 items: action.data
             };

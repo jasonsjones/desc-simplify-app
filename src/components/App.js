@@ -6,6 +6,7 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import Dashboard from './Dashboard';
 import RequestTabs from './RequestTabs';
+import Profile from './Profile';
 import NotFoundPage from './NotFoundPage';
 import './App.css';
 
@@ -18,6 +19,7 @@ class App extends React.Component {
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/signup" component={SignupPage} />
                     <Route exact path="/requests" component={RequestTabs} />
+                    <Route exact path="/profile" component={Profile} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </Layout>

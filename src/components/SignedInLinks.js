@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import M from 'materialize';
 
 import * as actions from '../actions/actions';
@@ -21,7 +22,7 @@ class SignedInLinks extends React.Component {
                     </a>
                     <ul id="accountDropdown" className="dropdown-content">
                         <li>
-                            <a href="#!">Profile</a>
+                            <Link to="/profile">Profile</Link>
                         </li>
                         <li>
                             <a href="#!" onClick={this.props.logout}>

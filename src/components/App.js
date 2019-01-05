@@ -6,7 +6,7 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import Dashboard from './Dashboard';
 import RequestTabs from './RequestTabs';
-import Profile from './Profile';
+import Profile from './UserProfile';
 import NotFoundPage from './NotFoundPage';
 import './App.css';
 

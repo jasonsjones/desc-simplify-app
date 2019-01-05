@@ -2,6 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+const SimpleDataRow = ({ label, data }) => (
+    <div className="row">
+        <div className="col s2">
+            <h6>
+                <strong>{label}:</strong>
+            </h6>
+        </div>
+        <div className="col s4">
+            <h6>{data}</h6>
+        </div>
+    </div>
+);
+
 const UserDetailCard = ({ contextUser, token }) => {
     return (
         <div className="card-panel grey lighten-5">
@@ -10,36 +23,9 @@ const UserDetailCard = ({ contextUser, token }) => {
                     contextUser.name.last
                 }`}</h4>
             </div>
-            <div className="row">
-                <div className="col s2">
-                    <h6>
-                        <strong>Id:</strong>
-                    </h6>
-                </div>
-                <div className="col s4">
-                    <h6>{contextUser._id}</h6>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col s2">
-                    <h6>
-                        <strong>Email:</strong>
-                    </h6>
-                </div>
-                <div className="col s4">
-                    <h6>{contextUser.email}</h6>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col s2">
-                    <h6>
-                        <strong>Password:</strong>
-                    </h6>
-                </div>
-                <div className="col s4">
-                    <h6>{contextUser.password}</h6>
-                </div>
-            </div>
+            <SimpleDataRow label="Id" data={contextUser._id} />
+            <SimpleDataRow label="Email" data={contextUser.email} />
+            <SimpleDataRow label="Password" data={contextUser.password} />
             <div className="row">
                 <div className="col s2">
                     <h6>
@@ -64,16 +50,7 @@ const UserDetailCard = ({ contextUser, token }) => {
                     <h6>{contextUser.isEmailValid ? 'true' : 'false'}</h6>
                 </div>
             </div>
-            <div className="row">
-                <div className="col s2">
-                    <h6>
-                        <strong>lastLoginAt:</strong>
-                    </h6>
-                </div>
-                <div className="col s4">
-                    <h6>{contextUser.lastLoginAt}</h6>
-                </div>
-            </div>
+            <SimpleDataRow label="lastLoginAt" data={contextUser.lastLoginAt} />
             <div className="row">
                 <div className="col s2">
                     <h6 style={{ overflowWrap: 'break-word' }}>

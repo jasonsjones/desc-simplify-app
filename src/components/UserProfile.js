@@ -19,11 +19,11 @@ const UserDetailCard = ({ contextUser, token }) => {
     return (
         <div className="card-panel grey lighten-5">
             <div className="row">
-                <h4 className="center-align">{`${contextUser.name.first} ${
-                    contextUser.name.last
-                }`}</h4>
+                <h4 className="center-align">User Profile</h4>
             </div>
             <SimpleDataRow label="Id" data={contextUser._id} />
+            <SimpleDataRow label="First Name" data={contextUser.name.first} />
+            <SimpleDataRow label="Last Name" data={contextUser.name.last} />
             <SimpleDataRow label="Email" data={contextUser.email} />
             <SimpleDataRow label="Password" data={contextUser.password} />
             <div className="row">
